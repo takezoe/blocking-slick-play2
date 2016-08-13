@@ -9,8 +9,8 @@ import slick.driver.JdbcProfile
 import models.Tables._
 import javax.inject.Inject
 
-import slick.BlockingH2Driver._
-import slick.BlockingH2Driver.api._
+import com.github.takezoe.slick.blocking.BlockingH2Driver._
+import com.github.takezoe.slick.blocking.BlockingH2Driver.blockingApi._
 
 object UserController {
   
@@ -57,7 +57,7 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider, val
         },
         form => {
           val user = UsersRow(0, form.name, form.companyId)
-          Users.unsafeInsert(user)
+          Users.insert(user)
           Redirect(routes.UserController.list)
         }
       )
@@ -72,7 +72,7 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider, val
         },
         form => {
           val user = UsersRow(form.id.get, form.name, form.companyId)
-          Users.filter(t => t.id === user.id.bind).unsafeUpdate(user)
+          Users.filter(t => t.id === user.id.bind).update(user)
           Redirect(routes.UserController.list)
         }
       )
@@ -81,7 +81,7 @@ class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider, val
   
   def remove(id: Long) = Action { implicit request =>
     db.withSession { implicit session =>
-      Users.filter(t => t.id === id.bind).unsafeDelete
+      Users.filter(t => t.id === id.bind).delete
       Redirect(routes.UserController.list)
     }
   }
