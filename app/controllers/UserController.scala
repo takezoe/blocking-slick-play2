@@ -5,11 +5,10 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.db.slick._
-import slick.driver.JdbcProfile
+import slick.jdbc.JdbcProfile
 import models.Tables._
 import javax.inject.Inject
 
-import com.github.takezoe.slick.blocking.BlockingH2Driver._
 import com.github.takezoe.slick.blocking.BlockingH2Driver.blockingApi._
 
 object UserController {
