@@ -25,7 +25,7 @@ object UserController {
   
 }
 
-class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider, val messagesApi: MessagesApi) extends Controller 
+class UserController @Inject()(val dbConfigProvider: DatabaseConfigProvider, components: ControllerComponents) extends AbstractController(components) 
     with HasDatabaseConfigProvider[JdbcProfile] with I18nSupport {
   import UserController._
 
